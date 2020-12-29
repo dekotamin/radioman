@@ -1,80 +1,88 @@
-package ru.netology;
+package ru.netology.domain;
 
 public class Radio {
-    private String name;
+    private int maxVolume = 10;
+    private int minVolume = 0;
+    private int maxStation = 9;
+    private int minStation = 0;
+    private int currentVolume;
     private int currentStation;
-    private int nextStation;
-    private int prevStation;
-    private int volumeSound;
-    private int maxVolumeSound;
-    private int minVolumeSound;
-    private boolean on;
-
-    public String getName() {
-
-        return name;
-    }
-
-    public void setName(String name) {
-
-        this.name = name;
-    }
 
     public int getCurrentStation() {
-
         return currentStation;
     }
 
-    public int getNextStation() {
-        return nextStation;
-    }
-
-    public int getPrevStation() {
-        return prevStation;
-    }
-
-    public int getMaxVolumeSound() {
-        return maxVolumeSound;
-    }
-
-    public int getMinVolumeSound() {
-        return minVolumeSound;
-    }
-
-    public void getVolumeSound(int volumeSound) {
-        this.volumeSound = volumeSound;
-    }
-
-    public boolean isOn() {
-        return on;
-    }
-
-    public void setOn(boolean on) {
-
-        this.on = on;
-    }
-
-    public int getVolumeSound() {
-        return volumeSound;
-    }
-
-    public void setPrevStation(int prevStation) {
-        this.prevStation = prevStation;
-    }
-
-    public void setNextStation(int nextStation) {
-        this.nextStation = nextStation;
-    }
-
-    public void setCurrentStation(int currentStation) {
+    public int setCurrentStation(int currentStation) {
+        if (currentStation > maxStation) {
+            return maxStation;
+        }
+        if (currentStation < minStation) {
+            return currentStation;
+        }
         this.currentStation = currentStation;
+        return currentStation;
     }
 
-    public void setMaxVolumeSound(int maxVolumeSound) {
-        this.maxVolumeSound = maxVolumeSound;
+
+    public void nextStation() {
+        int currentStation = this.getCurrentStation();
+        if (currentStation == maxStation) {
+            this.currentStation = minStation;
+            return;
+        }
+        this.currentStation++;
     }
 
-    public void setMinVolumeSound(int minVolumeSound) {
-        this.minVolumeSound = minVolumeSound;
+    public void prevStation() {
+        int currentStation = this.getCurrentStation();
+        if (currentStation == minStation) {
+            this.currentStation = maxStation;
+            return;
+        }
+        this.currentStation--;
     }
+
+    public void inputNumberStation(int numberStation) {
+        if (numberStation > maxStation) {
+            return;
+        }
+        if (numberStation < minStation) {
+            return;
+        }
+        this.currentStation = numberStation;
+    }
+
+    public int getCurrentVolume() {
+        return currentVolume;
+    }
+
+    public void setCurrentVolume(int currentVolume) {
+        if (currentVolume > maxVolume) {
+            return;
+        }
+        if (currentVolume < minVolume) {
+            return;
+        }
+        this.currentVolume = currentVolume;
+    }
+
+    public void upVolume() {
+        int currentVolume = this.getCurrentVolume();
+        if (currentVolume >= maxVolume) {
+            return;
+        }
+        this.currentVolume++;
+    }
+
+    public void downVolume() {
+        int currentVolume = this.getCurrentVolume();
+        if (currentVolume <= minVolume) {
+            return;
+        }
+        this.currentVolume--;
+    }
+
 }
+
+
+
