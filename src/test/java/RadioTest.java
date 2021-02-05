@@ -34,7 +34,7 @@ public class RadioTest {
     public void prevStationThrowMaxStation() {
         Radio radio = new Radio();
         radio.setCurrentStation(0);
-        radio.setPrevStation(0);
+        radio.setPrevStation(9);
         assertEquals(0, radio.getPrevStation());
     }
 
@@ -65,8 +65,8 @@ public class RadioTest {
     public void upVolumeThrowMaxVolume() {
         Radio radio = new Radio();
         radio.setCurrentVolume(10);
-        radio.setUpVolume(10);
-        assertEquals(0, radio.getUpVolume());
+        radio.setUpVolume(11);
+        assertEquals(10, radio.getUpVolume());
     }
 
     @Test
