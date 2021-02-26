@@ -1,105 +1,86 @@
 package ru.netology.radio;
 
 public class Radio {
-    private final int maxVolume = 10;
-    private final int minVolume = 0;
-    private final int maxStation = 9;
-    private final int minStation = 0;
-    private int currentVolume;
-    private int currentStation;
+    int maxVolume = 10;
+    int minVolume = 0;
+    int maxStation = 9;
+    int minStation = 0;
+    int currentVolume;
+    int currentStation;
 
     public int getCurrentStation() {
 
         return currentStation;
     }
 
-    public int setCurrentStation(int currentStation) {
-            if (currentStation == maxStation) {
-                return maxStation;
-            }
-            if (currentStation == minStation) {
-                return minStation;
-            }
-            this.currentStation = currentStation;
-            return currentStation;
+    public void setCurrentStation(int currentStation) {
+        if (currentStation > maxStation) {
+            this.currentStation = maxStation;
+            return;
+        }
+        if (currentStation < minStation) {
+            this.currentStation = minStation;
+            return;
+        }
+        this.currentStation = currentStation;
     }
 
-    public int setNextStation(int currentStation) {
+    public void setNextStation() {
         if (currentStation == maxStation) {
-            return minStation;
-        } else
-            this.currentStation++;
-        return this.currentStation;
+            this.currentStation = minStation;
+            return;
+        }
+        currentStation++;
     }
 
-    public int getNextStation() {
-
-        return currentStation++;
+    public void setPrevStation() {
+        if (currentStation == minStation) {
+            this.currentStation = maxStation;
+            return;
+        }
+        currentStation--;
     }
 
-    public int setPrevStation(int currentStation) {
-        if (currentStation == maxStation) {
-            return minStation;
-        } else
-            this.currentStation--;
-        return this.currentStation;
-    }
-
-    public int getPrevStation() {
-
-        return currentStation--;
-    }
-
-    public int inputNumberStation(int numberStation) {
+    public void inputNumberStation(int numberStation) {
         if (numberStation > maxStation) {
-            return currentStation;
+            numberStation = maxStation;
+        }
+        if (numberStation < minStation) {
+            numberStation = minStation;
         }
         this.currentStation = numberStation;
-        return numberStation;
     }
 
     public int getCurrentVolume() {
         return currentVolume;
     }
 
-    public int setCurrentVolume(int currentVolume) {
-        if (currentVolume == maxVolume) {
-            return maxVolume;
+    public void setCurrentVolume(int currentVolume) {
+        if (currentVolume > maxVolume) {
+            return;
         }
-        int minVolume = 0;
-        if (currentVolume <= minVolume) {
-            return minVolume;
+        if (currentVolume < minVolume) {
+            return;
         }
         this.currentVolume = currentVolume;
-        return currentVolume;
+        return;
     }
 
-    public int setUpVolume(int currentVolume) {
-        int upVolume = this.getUpVolume();
+    public void setUpVolume() {
         if (currentVolume < maxVolume) {
-            return upVolume;
+            this.currentVolume = currentVolume++;
         }
         this.currentVolume = maxVolume;
-        return maxVolume;
     }
 
-    public int getUpVolume() {
 
-        return this.currentVolume++;
-    }
-
-    public int setDownVolume(int currentVolume) {
-        int downVolume = this.getCurrentVolume();
-        this.currentVolume--;
-        return currentVolume--;
-    }
-
-    public int getDownVolume() {
-
-        return this.currentVolume--;
-    }
-
-    public int getInputNumberStation(int numberStation) {
-        return numberStation;
+    public void setDownVolume() {
+        if (currentVolume == minVolume) {
+            this.currentVolume = minVolume;
+            return;
+        }
+        currentVolume--;
     }
 }
+
+

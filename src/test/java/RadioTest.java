@@ -5,107 +5,110 @@ import ru.netology.radio.Radio;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class RadioTest {
+    Radio radio = new Radio();
 
     @Test
-    public void currentStation() {
-        Radio radio = new Radio();
+    void currentStation() {
         radio.setCurrentStation(8);
         assertEquals(8, radio.getCurrentStation());
     }
 
     @Test
-    public void nextStation() {
-        Radio radio = new Radio();
+    void nextStation() {
         radio.setCurrentStation(8);
-        radio.setNextStation(8);
-        assertEquals(9, radio.getNextStation());
-        radio.getNextStation();
+        radio.setNextStation();
+        assertEquals(9, radio.getCurrentStation());
     }
 
     @Test
-    public void stationInBack() {
-        Radio radio = new Radio();
+    void stationInBack() {
         radio.setCurrentStation(8);
-        radio.setPrevStation(8);
+        radio.setPrevStation();
         assertEquals(7, radio.getCurrentStation());
     }
 
     @Test
-    public void prevStationThrowMaxStation() {
-        Radio radio = new Radio();
+    void prevStationThrowMaxStation() {
         radio.setCurrentStation(0);
-        radio.setPrevStation(9);
-        assertEquals(0, radio.getPrevStation());
+        radio.setPrevStation();
+        assertEquals(9, radio.getCurrentStation());
     }
 
     @Test
-    public void nextStationThrowMinStation() {
-        Radio radio = new Radio();
+    void ShouldMinStation() {
+        radio.setCurrentStation(-1);
+        assertEquals(0,radio.getCurrentStation());
+    }
+
+    @Test
+    void nextStationThrowMinStation() {
         radio.setCurrentStation(9);
-        radio.setNextStation(9);
-        assertEquals(0, radio.getNextStation());
+        radio.setNextStation();
+        assertEquals(0, radio.getCurrentStation());
     }
 
     @Test
-    public void currentVolume() {
-        Radio radio = new Radio();
+    void ShouldMaxStation() {
+        radio.setCurrentStation(12);
+        assertEquals(9,radio.getCurrentStation());
+    }
+
+    @Test
+    void currentVolume() {
         radio.setCurrentVolume(9);
         assertEquals(9, radio.getCurrentVolume());
     }
 
     @Test
-    public void upVolume() {
-        Radio radio = new Radio();
+    void upVolume() {
         radio.setCurrentVolume(9);
-        radio.setUpVolume(9);
-        assertEquals(10, radio.getUpVolume());
+        radio.setUpVolume();
+        assertEquals(10, radio.getCurrentVolume());
     }
 
     @Test
-    public void upVolumeThrowMaxVolume() {
-        Radio radio = new Radio();
+    void upVolumeShouldMaxVolume() {
         radio.setCurrentVolume(10);
-        radio.setUpVolume(11);
-        assertEquals(10, radio.getUpVolume());
+        radio.setUpVolume();
+        assertEquals(10, radio.getCurrentVolume());
     }
 
     @Test
-    public void downVolume() {
-        Radio radio = new Radio();
-        radio.setCurrentVolume(9);
-        radio.setDownVolume(9);
-        assertEquals(8, radio.getDownVolume());
+    void upVolumeThrowMaxVolume() {
+        radio.setCurrentVolume(11);
+        radio.setUpVolume();
+        assertEquals(10, radio.getCurrentVolume());
     }
 
     @Test
-    public void downVolumeThrowMin() {
-        Radio radio = new Radio();
-        radio.setCurrentVolume(0);
-        assertEquals(0, radio.getDownVolume());
-        radio.getDownVolume();
+    void downVolume() {
+        radio.setCurrentVolume(1);
+        radio.setDownVolume();
+        assertEquals(0, radio.getCurrentVolume());
+    }
+
+    @Test
+    void downVolumeThrowMin() {
+        radio.setCurrentVolume(-1);
+        radio.setDownVolume();
+        assertEquals(0, radio.getCurrentVolume());
     }
 
     @Test
     public void inputNumberStation() {
-        Radio radio = new Radio();
         radio.inputNumberStation(15);
-        radio.setCurrentStation(5);
-        assertEquals(5, radio.getCurrentStation());
+        assertEquals(9, radio.getCurrentStation());
     }
 
     @Test
-    public void getInputNumberStation() {
-        Radio radio = new Radio();
+    void getInputNumberStation() {
         radio.inputNumberStation(5);
-        radio.getInputNumberStation(5);
         assertEquals(5, radio.getCurrentStation());
     }
 
     @Test
-    public void getInputNumberStationThrowMin() {
-        Radio radio = new Radio();
-        radio.setCurrentStation(5);
-        radio.getInputNumberStation(11);
-        assertEquals(5, radio.getCurrentStation());
+    void getInputNumberStationThrowMin() {
+        radio.inputNumberStation(-1);
+        assertEquals(0, radio.getCurrentStation());
     }
 }
