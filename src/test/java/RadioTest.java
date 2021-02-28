@@ -61,9 +61,9 @@ public class RadioTest {
 
     @Test
     void upVolume() {
-        radio.setCurrentVolume(9);
+        radio.setCurrentVolume(6);
         radio.setUpVolume();
-        assertEquals(10, radio.getCurrentVolume());
+        assertEquals(7, radio.getCurrentVolume());
     }
 
     @Test
